@@ -56,7 +56,7 @@ export default function FormLogin() {
         email,
         password,
       });
-      localStorage.setItem("userId", res.data?.data?.user.id);
+      localStorage.setItem("userId", res.data?.user.id);
     } catch (err) {
       setServerError(err.response?.data?.message || "An error occurred")
     } finally {

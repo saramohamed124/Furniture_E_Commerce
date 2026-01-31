@@ -1,4 +1,6 @@
-import React from 'react'
+"use client";
+
+import React, { useEffect, useState } from 'react'
 
 // icons
 import cart_icon from '@/app/components/assets/icons/cart.svg'
@@ -15,11 +17,18 @@ const action_list = [
   { name: 'Cart', icon: cart_icon },
 ]
 const ActionIcons = () => {
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    const userStored = localStorage.getItem("userId");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setUserId(userStored);
+  },[]);
   return (
     <ul className='hidden lg:flex justify-content-between items-center gap-4'>
         {action_list.map((action) => (
             <li className={`flex justify-content-between items-center gap-2 text-[#595959] `} key={action.name}>
               {action.name === "Account" ? (
+                !userId ? (
                 <details className="dropdown ">
                     <summary className="flex flex-column gap-2 cursor-pointer m-1">
                       <Image src={action.icon} alt={`${action.name} icon`} />
@@ -29,14 +38,18 @@ const ActionIcons = () => {
                       <li><Link href={'/signup'}>New Account</Link></li>
                     </ul>
                   </details>
-              ) : 
-              (
+                ):(
+                  <>
+                    <Image src={action.icon} alt={`${action.name} icon`} />
+                    <p className='text-gray-500'>Hello, user</p>
+                  </>
+                )
+              ) : (
                 <>
                 <Image src={action.icon} alt={`${action.name} icon`} />
                 <Link href={`/${action.name.toLowerCase()}`}>{action.name}</Link>
                 </>
-              )
-              }
+              )}
             </li>
         ))}
     </ul>
