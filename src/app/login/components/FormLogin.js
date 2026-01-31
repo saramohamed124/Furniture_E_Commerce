@@ -1,9 +1,9 @@
 'use client'
 
-import React from "react"
+import React, { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+import * as z from "zod"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -17,30 +17,50 @@ import {
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
+import Link from "next/link"
+import { EMAIL_REGEX, PWD_REGEX } from "@/app/constant/regex"
+import { api } from "@/apis/api"
+import { LOGIN } from "@/apis/endpoints"
+import { Eye, EyeOff, Loader } from "lucide-react"
 
-const formSchema = z.object({
-  email: z.string().email({
-    message: "البريد الإلكتروني غير صحيح.",
-  }),
-  password: z.string().min(6, {
-    message: "يجب أن تكون كلمة المرور 6 أحرف على الأقل.",
-  }),
+const loginSchema = z.object({
+  email: z.string().regex(EMAIL_REGEX, {
+    message:"It seems that this email address is invalid. Please try again.",
+  }).refine((v) => !v.includes(" "), "Spaces aren't allowed."),
+  password: z.string().regex(PWD_REGEX, {
+    message:"Please Enter A Valid Password",
+  }).refine((v) => !v.includes(" "), "Spaces aren't allowed."),
+  recaptcha: z.boolean().default(false),
 })
 
-export default function FormLogin() { 
+export default function FormLogin() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState("")
+  // form state
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
+      recaptcha: false
     },
   })
 
-  async function onSubmit(values) {
+  const onSubmit = async(values) => {
+    setLoading(true);
+    setServerError("");
     try {
-      console.log("Form Values:", values)
-    } catch (error) {
-      console.error("Login Error:", error)
+      const {email, password} = values
+      const res = await api.post(LOGIN, {
+        email,
+        password,
+      });
+      localStorage.setItem("userId", res.data?.data?.user.id);
+    } catch (err) {
+      setServerError(err.response?.data?.message || "An error occurred")
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -63,7 +83,7 @@ export default function FormLogin() {
                   autoComplete="email"
                 />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-red-500 text-xs" />
             </FormItem>
           )}
         />
@@ -75,44 +95,51 @@ export default function FormLogin() {
             <FormItem className={'flex flex-col gap-4'}>
               <FormLabel className={'text-(--main-color)'}>Password</FormLabel>
               <FormControl>
+                <div className="relative">
                 <Input 
-                    className={'border-(--border-color-gray) rounded-sm bg-white  focus-visible:shadow-(--main-color)'}
-                  type="password" 
+                  className={'border-(--border-color-gray) rounded-sm bg-white  focus-visible:shadow-(--main-color)'}
+                  type={showPassword ? "text" : "password"} 
                   placeholder="••••••" 
                   {...field} 
                   autoComplete="current-password"
                 />
-                
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2"
+                  >
+                  {showPassword ? ( <EyeOff size={18} className="text-gray-600"/>): (<Eye size={18} className="text-gray-600"/>)
+                }
+                </button>
+                </div>
               </FormControl>
-              <FormMessage />
-              <FormControl>
-                <Input 
-                className={'border-(--border-color-gray) rounded-sm bg-white  focus-visible:shadow-(--main-color)'}
-                  type="password" 
-                  placeholder="••••••" 
-                  {...field} 
-                  autoComplete="rewrite-password"
-                />
-                
-              </FormControl>
+              <FormMessage className="text-red-500 text-xs" />
             </FormItem>
           )}
         />
-        <div className="flex items-start gap-3">
-        <Checkbox id="terms-2" defaultChecked className={'border-(--border-color-gray) rounded-sm bg-white  focus-visible:shadow-(--main-color)'}/>
-        <div className="grid gap-2">
-          <Label htmlFor="terms-2">Remember Me</Label>
-          <p className="text-muted-foreground text-sm ">
-                This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.
-          </p>
-        </div>
-      </div>
+        <FormControl
+        control={form.control}
+        name="recaptcha"
+        render={({field}) => (
+            <div className="flex items-start gap-3">
+            <Checkbox id="recaptcha" checked={field.value} onCheckedChange={field.onChange} className={'border-(--border-color-gray) rounded-sm bg-white  focus-visible:shadow-(--main-color)'}/>
+            <div className="grid gap-2">
+              <Label htmlFor="recaptcha">Remember Me</Label>
+              <p className="text-muted-foreground text-sm ">
+                  This site is protected by reCAPTCHA and the Google Privacy Policy and recaptchaf Service apply.
+              </p>
+            </div>
+          </div>
+        )}
+        />
+        {serverError && <p className="text-destructive text-sm text-red-500! font-xs">{serverError}</p>}
       <div>
         <Button type="submit" className="w-full md:w-[70%] py-4 px-8 bg-(--main-color-yellow) text-white text-lg hover:bg-(--main-color-dark) rounded-sm">
-          Sign in
+          {loading ? <Loader/> : "Sign in"}
         </Button>
         <p className="underline pt-5 text-base">Forget your password?</p>
       </div>
+            <p>Don&apos;t Have Account? <Link className="text-(--main-color) underline" href={'/signup'}>Create new account</Link></p>
       </form>
     </Form>
   )

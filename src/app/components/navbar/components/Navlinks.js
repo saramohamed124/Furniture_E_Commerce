@@ -22,7 +22,7 @@ const Navlinks = () => {
             {links.map((link)=> (
       <li key={link.id} className="dropdown dropdown-hover" onClick={() => handleDropdown(link.id)}>
         <details>
-                                <summary>{link.link_name}</summary>
+            <summary>{link.link_name}</summary>
             {openDropDown === link.id && (
                     <ul className="p-2 bg-white w-40 z-10 rounded-xs">
                         {link.link_url.map((sublink, index) => (

@@ -10,9 +10,9 @@ import Link from 'next/link'
 
 // To be implemented: import icons for cart, user, wishlist, etc.
 const action_list = [
-  { name: 'Cart', icon: cart_icon },
-  { name: 'Account', icon: user_icon },
   { name: 'Wishlist', icon: wishlist_icon },
+  { name: 'Account', icon: user_icon },
+  { name: 'Cart', icon: cart_icon },
 ]
 const ActionIcons = () => {
   return (

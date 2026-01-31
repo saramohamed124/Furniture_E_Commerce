@@ -7,7 +7,7 @@ const not_found = () => {
   return (
     <div className='w-full h-screen justify-items-center align-content-center bg-white py-6'>
       <p className='text-xl md:text-4xl font-bold text-[var(--main-color)!important]'>This Page is Not Found!</p>
-      <Image src={not_found_gif} alt="Not Found Gif" />
+      <Image src={not_found_gif} alt="Not Found Gif" unoptimized={true} priority/>
     </div>
   )
 }
