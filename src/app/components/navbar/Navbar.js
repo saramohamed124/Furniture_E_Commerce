@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Logo from './components/Logo'
 import SearchBar from './components/SearchBar'
 import ActionIcons from './components/ActionIcons'
@@ -26,6 +26,13 @@ const links = [
 
 
 const Navbar = () => {
+  // Account user handle
+  const [userId, setUserId] = useState(null);
+  useEffect(() => {
+    const userStoredId = localStorage.getItem('userId');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setUserId(userStoredId);
+  },[])
   return (
     <header className='navbar shadow-sm w-full bg-[#EFF6F3] text-black py-3 px-4 md:px-2 flex justify-evenly items-center'>
       <Logo />
@@ -63,7 +70,8 @@ const Navbar = () => {
           </li>
           {action_list.map((action) => (
             <li key={action.name}>
-              {action.name === "Account" ? (
+              {action.name === "Account" ? 
+              !userId ? (
                 <details className="dropdown ">
                     <summary className="flex flex-column gap-2 cursor-pointer p-2.5">
                       <Image src={action.icon} alt={`${action.name} icon`} />
@@ -73,7 +81,14 @@ const Navbar = () => {
                       <li><Link href={'/signup'}>New Account</Link></li>
                     </ul>
                   </details>
-              ) : (
+              ) 
+              :(
+                <>
+                    <Image src={action.icon} alt={`${action.name} icon`} />
+                    <p className='text-gray-500'>Hello, user</p>
+                </>
+              )
+              : (
                 <Link href={`/${action.name.toLowerCase()}`} className='flex items-center gap-2 text-[#595959]'>
                   <Image src={action.icon} alt={`${action.name} icon`} width={20} height={20} />
                   {action.name}
