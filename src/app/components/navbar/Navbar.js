@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from './components/Logo'
 import SearchBar from './components/SearchBar'
 import ActionIcons from './components/ActionIcons'
