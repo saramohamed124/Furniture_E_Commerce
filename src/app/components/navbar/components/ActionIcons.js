@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // icons
 import cart_icon from '@/app/components/assets/icons/cart.svg'
@@ -8,6 +6,7 @@ import user_icon from '@/app/components/navbar/assets/icons/account.svg'
 import wishlist_icon from '@/app/components/assets/icons/wishlist.svg'
 import Image from 'next/image'
 import Link from 'next/link'
+import { cookies } from 'next/headers'
 
 
 // To be implemented: import icons for cart, user, wishlist, etc.
@@ -16,19 +15,15 @@ const action_list = [
   { name: 'Account', icon: user_icon },
   { name: 'Cart', icon: cart_icon },
 ]
-const ActionIcons = () => {
-  const [userId, setUserId] = useState(null);
-  useEffect(() => {
-    const userStored = localStorage.getItem("userId");
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setUserId(userStored);
-  },[]);
+const ActionIcons = async () => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token')?.value;
   return (
     <ul className='hidden lg:flex justify-content-between items-center gap-4'>
         {action_list.map((action) => (
             <li className={`flex justify-content-between items-center gap-2 text-[#595959] `} key={action.name}>
               {action.name === "Account" ? (
-                !userId ? (
+                !token ? (
                 <details className="dropdown ">
                     <summary className="flex flex-column gap-2 cursor-pointer m-1">
                       <Image src={action.icon} alt={`${action.name} icon`} />

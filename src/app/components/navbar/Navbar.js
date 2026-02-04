@@ -1,5 +1,4 @@
-'use client'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Logo from './components/Logo'
 import SearchBar from './components/SearchBar'
 import ActionIcons from './components/ActionIcons'
@@ -11,6 +10,7 @@ import cart_icon from '@/app/components/assets/icons/cart.svg'
 import user_icon from '@/app/components/navbar/assets/icons/account.svg'
 import search_icon from '@/app/components/navbar/assets/icons/search.svg'
 import wishlist_icon from '@/app/components/assets/icons/wishlist.svg'
+import { cookies } from 'next/headers'
 
 const action_list = [
   { name: 'Cart', icon: cart_icon },
@@ -26,14 +26,10 @@ const links = [
 ]
 
 
-const Navbar = () => {
+const Navbar = async () => {
   // Account user handle
-  const [userId, setUserId] = useState(null);
-  useEffect(() => {
-    const userStoredId = localStorage.getItem('userId');
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setUserId(userStoredId);
-  },[])
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token')?.value;
   return (
     <header className='navbar shadow-sm w-full bg-[#EFF6F3] text-black py-3 px-4 md:px-2 flex justify-evenly items-center'>
       <Logo />
@@ -72,7 +68,7 @@ const Navbar = () => {
           {action_list.map((action) => (
             <li key={action.name}>
               {action.name === "Account" ? 
-              !userId ? (
+              !token ? (
                 <details className="dropdown ">
                     <summary className="flex flex-column gap-2 cursor-pointer p-2.5">
                       <Image src={action.icon} alt={`${action.name} icon`} />

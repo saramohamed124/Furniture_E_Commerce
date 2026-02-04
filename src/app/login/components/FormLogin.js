@@ -22,6 +22,8 @@ import { EMAIL_REGEX, PWD_REGEX } from "@/app/constant/regex"
 import { api } from "@/apis/api"
 import { LOGIN } from "@/apis/endpoints"
 import { Eye, EyeOff, Loader } from "lucide-react"
+import { createSessions } from "../../actions/auth"
+import { useRouter } from "next/navigation"
 
 const loginSchema = z.object({
   email: z.string().regex(EMAIL_REGEX, {
@@ -37,6 +39,7 @@ export default function FormLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("")
+  const router = useRouter()   
   // form state
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -56,7 +59,9 @@ export default function FormLogin() {
         email,
         password,
       });
-      localStorage.setItem("userId", res.data?.user.id);
+      await createSessions(res.data);
+      router.refresh()
+      router.push('/')
     } catch (err) {
       setServerError(err.response?.data?.message || "An error occurred")
     } finally {
