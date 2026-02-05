@@ -7,6 +7,7 @@ import wishlist_icon from '@/app/components/assets/icons/wishlist.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { cookies } from 'next/headers'
+import LogoutBtn from './LogoutBtn'
 
 
 // To be implemented: import icons for cart, user, wishlist, etc.
@@ -37,6 +38,7 @@ const ActionIcons = async () => {
                   <>
                     <Image src={action.icon} alt={`${action.name} icon`} />
                     <p className='text-gray-500'>Hello, user</p>
+                    <LogoutBtn/>
                   </>
                 )
               ) : (

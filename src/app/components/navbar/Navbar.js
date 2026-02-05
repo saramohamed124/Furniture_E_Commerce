@@ -11,6 +11,7 @@ import user_icon from '@/app/components/navbar/assets/icons/account.svg'
 import search_icon from '@/app/components/navbar/assets/icons/search.svg'
 import wishlist_icon from '@/app/components/assets/icons/wishlist.svg'
 import { cookies } from 'next/headers'
+import LogoutBtn from './components/LogoutBtn'
 
 const action_list = [
   { name: 'Cart', icon: cart_icon },
@@ -80,10 +81,11 @@ const Navbar = async () => {
                   </details>
               ) 
               :(
-                <>
+                <div className='flex justify-start px-2'>
                     <Image src={action.icon} alt={`${action.name} icon`} />
                     <p className='text-gray-500'>Hello, user</p>
-                </>
+                    <LogoutBtn/>
+                </div>
               )
               : (
                 <Link href={`/${action.name.toLowerCase()}`} className='flex items-center gap-2 text-[#595959]'>

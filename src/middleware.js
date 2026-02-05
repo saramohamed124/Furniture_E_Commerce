@@ -7,7 +7,7 @@ export function middleware(request) {
     // Redirect user Authenticated to Home and away from Auth Pages
     if(token && (pathname === '/login' || pathname === '/signup')) {
         // return NextResponse.redirect(new URL('/', request.url));
-        return NextResponse.rewrite(new URL('not-found', request.url))
+        return NextResponse.rewrite(new URL('/not-found', request.url))
     }
 
     // Protect private Routes from unauthenticated users
@@ -20,5 +20,5 @@ export function middleware(request) {
 }
 
 export const config = {
-    matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+    matcher: ['/((?!api|_next/static|_next/image|favicon.ico|.*\\.svg$).*)'],
 }

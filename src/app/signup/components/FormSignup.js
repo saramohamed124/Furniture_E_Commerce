@@ -21,6 +21,8 @@ import { EMAIL_REGEX, NAME_REGEX, PWD_REGEX } from "@/app/constant/regex"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { createSessions } from "@/app/actions/auth"
 
 
 // Handle Signup Regex validation & Messages
@@ -47,6 +49,7 @@ export default function FormSignUp() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [serverError, setServerError] = useState("")
+  const router = useRouter();
   // form State
   const form = useForm({
     resolver: zodResolver(signupSchema),
@@ -72,7 +75,9 @@ export default function FormSignUp() {
         email: payload.email,
         password: payload.password.trim()
       })
-      localStorage.setItem("userId", res.data?.data.user.id);
+        await createSessions(res.data);
+        router.refresh()
+        window.location.pathname = '/';
     } catch (err) {
       setServerError(err.response?.data?.message || "An error occurred")
     } finally {

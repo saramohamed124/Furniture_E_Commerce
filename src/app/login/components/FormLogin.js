@@ -61,7 +61,7 @@ export default function FormLogin() {
       });
       await createSessions(res.data);
       router.refresh()
-      router.push('/')
+      window.location.pathname = '/';
     } catch (err) {
       setServerError(err.response?.data?.message || "An error occurred")
     } finally {

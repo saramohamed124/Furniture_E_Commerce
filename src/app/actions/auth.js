@@ -1,6 +1,7 @@
 'use server';
 
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const createSessions = async(userData) => {
     try{
@@ -23,4 +24,10 @@ export const createSessions = async(userData) => {
     }catch(err) {
         throw err; // pass error back to client component
     }
+}
+
+export const logout = async() => {
+    const cookiesStore = await cookies();
+    cookiesStore.delete('token');
+    redirect('/');
 }
