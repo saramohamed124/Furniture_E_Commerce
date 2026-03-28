@@ -2,8 +2,8 @@ import React from 'react'
 import Image from 'next/image'
 
 // images
-import green_view from '@/app/assets/imgs/green_furniture.jpg'
-import green_v_view from '@/app/assets/imgs/green_vertical_view.jpg'
+import green_view from '@public/imgs/green_furniture.jpg'
+import green_v_view from '@public/imgs/green_vertical_view.jpg'
 
 const ImgSec = () => {
   return (

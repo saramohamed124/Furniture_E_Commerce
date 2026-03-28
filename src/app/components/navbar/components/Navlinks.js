@@ -17,8 +17,7 @@ const Navlinks = () => {
     }
 
   return (
- <div className="navbar-center hidden lg:flex text-black justify-center items-center bg-white py-2 w-full">
-    <ul className="menu menu-horizontal px-1">
+<div className="navbar-center hidden lg:flex text-black justify-center items-center bg-white border-b border-gray-100 py-2 w-full shadow-sm">    <ul className="menu menu-horizontal px-1">
             {links.map((link)=> (
       <li key={link.id} className="dropdown dropdown-hover" onClick={() => handleDropdown(link.id)}>
         <details>

@@ -1,9 +1,9 @@
 import React from 'react'
 
 // icons
-import cart_icon from '@/app/components/assets/icons/cart.svg'
+import cart_icon from '@public/icons/cart.svg'
 import user_icon from '@/app/components/navbar/assets/icons/account.svg'
-import wishlist_icon from '@/app/components/assets/icons/wishlist.svg'
+import wishlist_icon from '@public/icons/wishlist.svg'
 import Image from 'next/image'
 import Link from 'next/link'
 import { cookies } from 'next/headers'

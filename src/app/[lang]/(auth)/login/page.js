@@ -1,7 +1,7 @@
 import React from 'react'
 import FormLogin from './components/FormLogin'
 import ImgSec from './components/ImgSec'
-import Navbar from '../components/navbar/Navbar'
+import Navbar from '../../../components/navbar/Navbar'
 
 const LoginPage = () => {
   return (

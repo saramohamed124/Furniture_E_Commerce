@@ -8,9 +8,9 @@ import {
 import ModernFurnCard from '@/app/utils/card/ModernFurnCard'
 
 // import Images
-import vase from '@/app/components/home/assets/imgs/vase.png'
-import chandelier from '@/app/components/home/assets/imgs/chandelier.png'
-import armchair from '@/app/components/home/assets/imgs/armchair.png'
+import vase from '@public/imgs/vase.png'
+import chandelier from '@public/imgs/chandelier.png'
+import armchair from '@public/imgs/armchair.png'
 
 const cardContents = [
   {
@@ -66,15 +66,9 @@ const BestModernSec = () => {
           {tabItems.map((item, index) => (
           <TabsContent key={index} value={item} className={'flex gap-4 justify-around flex-wrap place-content-start mt-8'}>
           {cardContents.filter(card => item === "All" || card.category === item).map((card) => (
-            <ModernFurnCard 
+            <ModernFurnCard
+            product= {card}
             key={card.id}
-            discountPercentage={card.discountPercentage}
-            ImgSrcContent={card.ImgSrcContent}
-            ImgSrcContentAlt={card.ImgSrcContentAlt}
-            cardTitle={card.cardTitle}
-            priceBefore={card.priceBefore}
-            priceAfter={card.priceAfter}
-            stockStatus={card.stockStatus}
             />
           ))}
           {/* Add empty state if no cards are available for the selected category */}
