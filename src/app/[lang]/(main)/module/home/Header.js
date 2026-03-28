@@ -1,7 +1,7 @@
 import React from 'react'
 
 // imgs
-import header_img from '@/app/components/home/assets/imgs/header.jpg'
+import header_img from '@public/imgs/header.jpg'
 import Image from 'next/image'
 
 const Header = () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../navbar/components/Logo'
+import Logo from '../../../../components/navbar/components/Logo'
 import Link from 'next/link'
 
 const FOOTER_DATA = [

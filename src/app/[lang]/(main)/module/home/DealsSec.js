@@ -1,8 +1,8 @@
 import React from 'react'
 
 // import deal images
-import white_armchair from '@/app/components/home/assets/imgs/white_armchair.png'
-import orange_armchair from '@/app/components/home/assets/imgs/orange_armchair.png'
+import white_armchair from '@public/imgs/white_armchair.png'
+import orange_armchair from '@public/imgs/orange_armchair.png'
 import DealCard from '@/app/utils/card/DealCard'
 
 // deal items data

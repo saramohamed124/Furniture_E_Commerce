@@ -1,7 +1,7 @@
 import React from 'react'
-import ImgSec from '@/app/login/components/ImgSec'
+import ImgSec from '@/app/[lang]/(auth)/login/components/ImgSec'
 import FormSignUp from './components/FormSignup'
-import Navbar from '../components/navbar/Navbar'
+import Navbar from '../../../components/navbar/Navbar'
 
 const SignUpPage = () => {
   return (

@@ -18,11 +18,11 @@ import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { EMAIL_REGEX, PWD_REGEX } from "@/app/constant/regex"
+import { EMAIL_REGEX, PWD_REGEX } from "@/app/constants/regex"
 import { api } from "@/apis/api"
 import { LOGIN } from "@/apis/endpoints"
 import { Eye, EyeOff, Loader } from "lucide-react"
-import { createSessions } from "../../actions/auth"
+import { createSessions } from "../../../../actions/auth"
 import { useRouter } from "next/navigation"
 
 const loginSchema = z.object({

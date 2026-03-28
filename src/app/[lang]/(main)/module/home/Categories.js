@@ -2,10 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 
 // Import Images
-import fabric from '../assets/imgs/fabric.png'
-import coach from '../assets/imgs/coach.png'
-import fase from '../assets/imgs/fase.png'
-import light from '../assets/imgs/light.png'
+import fabric from '@public/imgs/fabric.png'
+import coach from '@public/imgs/coach.png'
+import fase from '@public/imgs/fase.png'
+import light from '@public/imgs/light.png'
 
 const categoriesData = {
     Fabric: [

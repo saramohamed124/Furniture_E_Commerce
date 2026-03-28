@@ -1,4 +1,4 @@
-import { EMAIL_REGEX, NAME_REGEX, PHONE_REGEX, PWD_REGEX } from "@/app/constant/regex"
+import { EMAIL_REGEX, NAME_REGEX, PHONE_REGEX, PWD_REGEX } from "@/app/constants/regex"
 
 export const validateInputsAuth = (field, value) => {
     const patterns = {

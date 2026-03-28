@@ -53,6 +53,7 @@ body {
   font-family: var(--font-nunito), sans-serif;
   color: black;
   box-sizing: border-box;
+  margin: 0;
 }
 .text-heading-1 {
   @apply font-semibold text-4xl;

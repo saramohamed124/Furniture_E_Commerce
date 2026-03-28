@@ -3,9 +3,9 @@ import Image from 'next/image'
 import { Instagram } from 'lucide-react'
 
 // import images
-import orange_landscape from '@/app/components/home/assets/imgs/orange_landscape.png'
-import blue_landscape from '@/app/components/home/assets/imgs/blue_landscape.jpg'
-import colorful_landscape from '@/app/components/home/assets/imgs/colorful_landscape.png'
+import orange_landscape from '@public/imgs/orange_landscape.png'
+import blue_landscape from '@public/imgs/blue_landscape.jpg'
+import colorful_landscape from '@public/imgs/colorful_landscape.png'
 
 const FollowUsSec = () => {
   return (

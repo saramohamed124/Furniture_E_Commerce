@@ -2,8 +2,8 @@ import React from "react";
 import Image from "next/image";
 
 // import blog images
-import styling_img from '../assets/imgs/styling.jpg'
-import color_palette from '../assets/imgs/color_palette.png'
+import styling_img from '@public/imgs/styling.jpg'
+import color_palette from '@public/imgs/color_palette.png'
 import CardBlog from "@/app/utils/card/CardBlog";
 const Blogs = () => {
     return (
